@@ -16,14 +16,24 @@ public:
 
     static void dump(const mem &memory) {
         std::cout << "memdump" << std::endl;
-        int column = 0;
-        for(auto bte : memory.mPhysMem) {
-            std::cout << std::hex << std::setfill('0') << std::setw(2) << bte;
-            if(++column % 15 == 0) {
-                std::cout << std::endl;
-            }
-            else std::cout << " ";
+        std::stringstream ss;
+
+        ss << "  ";
+        for(int i = 0; i <= 0xF; ++i) {
+            ss << std::hex << std::setw(6) << i;
         }
+
+        int row = 0;
+        for(int i = 0; i < memory.mPhysMem.size(); ++i) {
+            std::cerr << i << std::endl;
+            if(i % 16 == 0) {
+                ss << std::endl << std::setw(3) << row;
+                row += 16;
+            }
+            ss << std::hex << std::setw(6) << static_cast<int>(memory.mPhysMem[i]);
+        }
+
+        std::cout << ss.str() << std::endl;
     }
 private:
     std::vector<uint8_t> mPhysMem;

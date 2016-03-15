@@ -6,8 +6,8 @@
 #include <iostream>
 
 mem::mem(int size, int pattern) : mPhysMem(size) {
-    std::cout << "Initialized memory of size " << size  << " bytes" << std::endl;
-    for (auto cell : mPhysMem) {
+    std::cout << "Initialized memory of size " << mPhysMem.size() << " bytes" << std::endl;
+    for (auto &cell : mPhysMem) {
         cell = (uint8_t) (pattern & 0xFF);
     }
 }
