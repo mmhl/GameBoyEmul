@@ -25,13 +25,12 @@ public:
     };
     constexpr static int NINTENDO_MAGIC_OFFSET = 0x104;
     constexpr static int NINTENDO_MAGIC_LEN = 48;
-
     static Rom loadFromFile(const std::string &path);
-    bool verify();
+
+    std::vector<uint8_t> getBytes() const;
+    bool verify() const;
 private:
     Rom(std::vector<uint8_t> &bytes);
-    Rom(uint8_t *bytes, int size);
-    bool verifyMagic();
 
     std::vector<uint8_t> mRomBytes;
 
@@ -40,7 +39,6 @@ private:
 class RomException : public std::runtime_error {
 public:
     RomException(RomError err, const Rom rom);
-
     virtual const char *what() const throw();
 
 private:

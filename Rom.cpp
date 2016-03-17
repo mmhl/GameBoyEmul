@@ -30,14 +30,10 @@ Rom::Rom(std::vector<uint8_t> &bytes) {
     mRomBytes = bytes;
 }
 
-Rom::Rom(uint8_t *bytes, int size) {
-
-}
-
-bool Rom::verify() {
+bool Rom::verify() const  {
     using namespace std;
-    vector<uint8_t>::iterator magic_begin = mRomBytes.begin() + Rom::NINTENDO_MAGIC_OFFSET;
-    vector<uint8_t>::iterator magic_end = mRomBytes.begin() + Rom::NINTENDO_MAGIC_OFFSET + Rom::NINTENDO_MAGIC_LEN;
+    vector<uint8_t>::const_iterator magic_begin = mRomBytes.begin() + Rom::NINTENDO_MAGIC_OFFSET;
+    vector<uint8_t>::const_iterator magic_end = mRomBytes.begin() + Rom::NINTENDO_MAGIC_OFFSET + Rom::NINTENDO_MAGIC_LEN;
 
     vector<uint8_t> rom_magic(magic_begin, magic_end);
 
@@ -46,6 +42,10 @@ bool Rom::verify() {
             return false;
     }
     return true;
+}
+
+std::vector<uint8_t> Rom::getBytes() const {
+    return this->mRomBytes;
 }
 
 

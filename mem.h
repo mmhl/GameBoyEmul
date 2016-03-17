@@ -9,10 +9,12 @@
 #include <cstdint>
 #include <iostream>
 #include <iomanip>
+#include "Rom.h"
 
 class mem {
 public:
     mem(int size, int pattern = 0x00);
+    void loadRom(const Rom &rom);
 
     static void dump(const mem &memory) {
         std::cout << "memdump" << std::endl;
@@ -25,7 +27,6 @@ public:
 
         int row = 0;
         for(int i = 0; i < memory.mPhysMem.size(); ++i) {
-            std::cerr << i << std::endl;
             if(i % 16 == 0) {
                 ss << std::endl << std::setw(3) << row;
                 row += 16;
